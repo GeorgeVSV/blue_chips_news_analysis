@@ -1,9 +1,9 @@
-import json
-f = {'Gazprom': {}}
+from configparser import ConfigParser
+import re
 
-f['Gazprom']['Dates'] = ['news1', 'news2']
-f['Gazprom']['Titles'] = ['title_1', 'titl2']
+conf = ConfigParser()
+conf.read('config/cnf.ini')
+#print(conf['website_url']['usr_agent'])
 
 
-
-
+print(re.sub(r',.*', "", 'Polymetal, облигация'))
