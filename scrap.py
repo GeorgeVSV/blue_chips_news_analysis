@@ -47,7 +47,7 @@ class FinScrap:
         self.chips_links = chips_links
         return chips_links
 
-    def get_chips_news(self) -> list:
+    def get_chips_news(self, stock_name: str) -> list:
         """
         Scrap blue chips news and collect them.
 
@@ -56,7 +56,7 @@ class FinScrap:
         """
         chip_news = []
         # Collect chips links
-        links = self.get_chips_links()
+        links = self.get_chips_links()[stock_name]
         # Scrap blue chips news info from their links
         for chip, chip_url in tqdm(links.items(), desc='Scrapping chips'):
             # Request to site
@@ -74,9 +74,8 @@ class FinScrap:
                 # Set translator
                 translator = Translator()
                 trans_date = translator.translate(date).text
-                time.sleep(0.1)
+                time.sleep(0.001)
                 trans_title = translator.translate(title).text
-                time.sleep(0.1)
                 trans_chip = translator.translate(chip).text
                 # Add data to list of lists
                 chip_news.append([trans_chip, trans_date, trans_title])
