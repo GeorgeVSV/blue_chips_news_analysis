@@ -5,7 +5,7 @@ from tqdm import tqdm
 import requests
 import time
 import re
-import json
+
 
 class FinScrap:
     """Class for scrapping investfunds.ru site """
@@ -47,7 +47,7 @@ class FinScrap:
         self.chips_links = chips_links
         return chips_links
 
-    def scrap_chips_news(self) -> dict:
+    def get_chips_news(self) -> list:
         """
         Scrap blue chips news and collect them.
 
