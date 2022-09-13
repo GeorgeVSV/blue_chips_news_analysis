@@ -11,9 +11,7 @@ class SentimentProcessing:
         :param stock: name of interested stock
         """
         self.chip_name = stock
-        scraper = FinScrap(self.chip_name)
-        df_dict = scraper.get_chip_news()
-        self.df_chip = pd.DataFrame(df_dict, columns=['Stock', 'Date', 'Title'])
+        self.df_chip = pd.DataFrame
         self.parsed_news = pd.DataFrame
 
     def score_news_polarity(self) -> pd.DataFrame:
@@ -22,6 +20,11 @@ class SentimentProcessing:
 
         :return: pd.DataFrame with polarity scores for all blue chips with separation based on days
         """
+        # Scrap news from investfunds.ru
+        scraper = FinScrap(self.chip_name)
+        df_dict = scraper.get_chip_news()
+        # Make pandas dataframe from dict
+        self.df_chip = pd.DataFrame(df_dict, columns=['Stock', 'Date', 'Title'])
         # Set sentiment analyser
         vader = SentimentIntensityAnalyzer()
         # Calc polarity score for each headline
@@ -31,6 +34,8 @@ class SentimentProcessing:
         # Concat the DataFrames of the news and their polarity scores
         parsed_news = pd.concat([self.df_chip, scores_df.set_index(self.df_chip.index)], axis=1)
         parsed_news.Date = pd.to_datetime(parsed_news.Date, dayfirst=True)
+        # Delete unnecessary column stock and correct index
+        parsed_news = parsed_news.drop('Stock', axis=1).set_index([list(range(1, len(parsed_news)+1))])
         self.parsed_news = parsed_news
         return parsed_news
 
@@ -41,4 +46,6 @@ class SentimentProcessing:
         fig = px.bar(self.parsed_news, x=self.parsed_news.Date, y=self.parsed_news.compound,
                      title=self.chip_name + ' Daily Sentiment Scores')
         fig.update_yaxes(title=None)
-        fig.show()
+        # Return fig and then turn it into a graphjson object for displaying in web page later
+        return fig
+
