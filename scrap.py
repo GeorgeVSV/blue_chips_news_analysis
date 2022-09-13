@@ -3,21 +3,23 @@ from configparser import ConfigParser
 from googletrans import Translator
 from tqdm import tqdm
 import requests
-import time
 import re
 
 
 class FinScrap:
     """Class for scrapping investfunds.ru site """
-    def __init__(self, config_path: str = 'config/cnf.ini'):
+    def __init__(self, chip_name: str, config_path: str = 'config/cnf.ini'):
         """
         Construct all the necessary attributes for the parsing.
 
         :param config_path: path to the config file with urls
+        :param chip_name: name of interested stock
         """
         conf = ConfigParser()
         conf.read(config_path)
         conf_select = conf['website_url']
+        self.translator = Translator()
+        self.chip_name = chip_name
         self.base_url = conf_select['base_url']
         self.blue_chips_url = conf_select['blue_chips_url']
         self.usr_agent_key = conf_select['usr_agent_key']
@@ -47,39 +49,35 @@ class FinScrap:
         self.chips_links = chips_links
         return chips_links
 
-    def get_chips_news(self) -> list:
+    def get_chip_news(self) -> list:
         """
         Scrap blue chips news and collect them.
 
-        :return: dict with blue chips names as keys and dict with their Dates & Titles of news as values:
+        :return: dict with blue chip names as key and dict with its Dates & Titles of news as values:
                  {'chip_name': {'Dates': [Date1, Date2..], 'Titles': [Title1, Title2..]}
         """
         chip_news = []
         # Collect chips links
-        links = self.get_chips_links()
-        # Scrap blue chips news info from their links
-        for chip, chip_url in tqdm(links.items(), desc='Scrapping chips'):
-            # Request to site
-            response = requests.get(chip_url, headers={self.usr_agent_key: self.usr_agent_value})
-            # Parse html with bs4
-            html = BeautifulSoup(response.text, 'lxml')
-            # Find specific tags in html
-            raw_news = html.find('ul', class_='newsList')
-            all_items = raw_news.find_all('li')
-            # Collect news titles and dates
-            for item in all_items:
-                # Clean news titles & dates
-                date = item.find('span').text.replace('|', '')
-                title = item.find('b').text
-                # Set translator
-                translator = Translator()
-                trans_date = translator.translate(date).text
-                time.sleep(0.1)
-                trans_title = translator.translate(title).text
-                time.sleep(0.1)
-                trans_chip = translator.translate(chip).text
-                # Add data to list of lists
-                chip_news.append([trans_chip, trans_date, trans_title])
+        link = self.get_chips_links()[self.chip_name]
+        # Scrap blue chip news info from their links
+        # Request to site
+        response = requests.get(link, headers={self.usr_agent_key: self.usr_agent_value})
+        # Parse html with bs4
+        html = BeautifulSoup(response.text, 'lxml')
+        # Find specific tags in html
+        raw_news = html.find('ul', class_='newsList')
+        all_items = raw_news.find_all('li')
+        # Collect news titles and dates
+        for item in all_items:
+            # Clean news titles & dates
+            date = item.find('span').text.replace('|', '')
+            title = item.find('b').text
+            # Set translator
+            trans_date = self.translator.translate(date).text
+            trans_title = self.translator.translate(title).text
+            trans_chip = self.translator.translate(self.chip_name).text
+            # Add data to list of lists
+            chip_news.append([trans_chip, trans_date, trans_title])
         # Save result to class argument
         self.chip_news = chip_news
         return chip_news
