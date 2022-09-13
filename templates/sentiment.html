@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Blue Chips News Sentiment Analyser</title>
+	</head>
+
+	<body style="font-family:arial, sans-serif">
+		<h1>{{header}}</h1>
+		<h4><a href="/">Go back and enter another blue chip</a></h4>
+		<div id="chart" class="chart"></div>
+		<br><br>
+		<div>{{description}}</div>
+		<br><br>
+		{{ table|safe }}
+		</center>
+	</body>
+
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script type="text/javascript">
+		var graph_daily = {{graphJSON_daily | safe}};
+		Plotly.newPlot('chart',graph_daily,{});
+	</script>
+</html>
