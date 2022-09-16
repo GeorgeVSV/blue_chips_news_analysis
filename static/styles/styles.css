@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+
+}
+
+h1 {
+    border: solid;
+    border-radius: 7px;
+    border-color: CornflowerBlue;
+    margin: auto;
+    width: 400px;
+    color: white
+}
+
+span {
+    color: RoyalBlue;
+    font-weight: bold;
+}
+
+p {
+    color: white;
+    width: 400px;
+    margin: auto;
+}
+
+body {
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+
+}
+
+h3 {
+    font-weight: normal;
+}
+
+b {
+    font-size: 17px;
+    color: white;
+
+
+}
+
+.disclaimer {
+    color: red;
+}
+
+div.head_img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-image: url("../images/image.jpg")};
+}
+
+form {
+	margin: auto;
+	width: 80%;
+}
+
+input[type=text] {
+	height: 24px;
+	font-size:20px;
+}
+
+input[type=submit] {
+    background-color: Cornsilk;
+	color: DarkBlue;
+	border: 2px solid DarkBlue;
+	font-size: 16px;
+	border-radius:4px;
+
+}
+
+input[type=submit]:active:focus {
+  box-shadow: 0px 0px 2px 0px black;
+}
+
+input[type=text]::placeholder {
+  color: black;
+  font-size: 17px;
+  opacity:.5;
+}
+
+table.dataframe, .dataframe th {
+          background-color: white;
+		  border: none;
+		  border-bottom: 1px solid #C8C8C8;
+		  border-collapse: collapse;
+		  text-align:left;
+		  font-size: 0.9em;
+		}
+
+table.dataframe {
+    width: 400px;
+    margin: auto;
+    border: solid 5px;
+}
