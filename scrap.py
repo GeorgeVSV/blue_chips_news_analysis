@@ -2,13 +2,14 @@ from bs4 import BeautifulSoup
 from configparser import ConfigParser
 from googletrans import Translator
 from tqdm import tqdm
+import pandas as pd
 import requests
 import re
 
 
 class FinScrap:
     """Class for scrapping investfunds.ru site """
-    def __init__(self, chip_name: str, config_path: str = 'config/cnf.ini'):
+    def __init__(self, chip_name: str = 'decoy', config_path: str = 'config/cnf.ini'):
         """
         Construct all the necessary attributes for the parsing.
 
@@ -27,10 +28,11 @@ class FinScrap:
         self.chips_links = {}
         self.chip_news = {}
 
-    def get_chips_links(self) -> dict:
+    def get_chips_links(self, for_landing: bool = False) -> dict:
         """
         Returns blue chips links from 'investfunds.ru'.
 
+        :param for_landing: if True then form pd.Dataframe with unique stock names
         :return: dict with blue chips names as keys and their links as values
         """
         chips_links = {}
@@ -47,6 +49,8 @@ class FinScrap:
             chips_links[chip_name] = (self.base_url + link.get('href'))
         # Save result to class argument
         self.chips_links = chips_links
+        if for_landing:
+            return pd.DataFrame({'Stock': list(chips_links.keys())}, index=range(1, 16))
         return chips_links
 
     def get_chip_news(self) -> list:
