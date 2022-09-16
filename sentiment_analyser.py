@@ -35,7 +35,7 @@ class SentimentProcessing:
         parsed_news = pd.concat([self.df_chip, scores_df.set_index(self.df_chip.index)], axis=1)
         parsed_news.Date = pd.to_datetime(parsed_news.Date, dayfirst=True)
         # Delete unnecessary column stock and correct index
-        parsed_news = parsed_news.drop('Stock', axis=1).set_index([list(range(1, len(parsed_news)+1))])
+        parsed_news = parsed_news.drop('Stock', axis=1).set_index([list(range(1, len(parsed_news)+1))]).round(2)
         self.parsed_news = parsed_news
         return parsed_news
 
