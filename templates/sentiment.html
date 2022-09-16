@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
 		<title>Blue Chips News Sentiment Analyser</title>
+		<link rel="stylesheet" type= "text/css" href="../static/styles/stl2.css">
 	</head>
 
-	<body style="font-family:arial, sans-serif">
-		<h1>{{header}}</h1>
-		<h4><a href="/">Go back and enter another blue chip</a></h4>
+	<body>
+		<div class="head_img" align="center">
+			<h1>Daily Sentiment of <span>{{header}}</span> stock</h1>
+		<br><br>
 		<div id="chart" class="chart"></div>
 		<br><br>
-		<div>{{description}}</div>
+		<p class="desc">The above chart averages the sentiment daily scores of <span>{{header}}</span> stock.
+    	The table below gives each of the most recent headlines of the stock and the negative, neutral, positive and an aggregated sentiment score.
+    	The news headlines are obtained from the investfunds website.
+    	Sentiments are given by the nltk.sentiment.vader Python library.</p>
+		<br><br>
+		<b>Latest stock's news:</b>
 		<br><br>
 		{{ table|safe }}
-		</center>
+		<h4 align="left"><a href="/">Go back and investigate another blue chip</a></h4>
+		</div>
 	</body>
 
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>

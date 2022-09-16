@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+span {
+    color: RoyalBlue;
+    font-weight: bold;
+}
+
+.desc {
+    color: white;
+    width: 900px;
+}
+
+h1 {
+    border: solid;
+    border-radius: 7px;
+    border-color: CornflowerBlue;
+    margin: auto;
+    width: 400px;
+    color: white
+}
+
+a:link {
+    color: DarkOrange;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+b {
+    color: white;
+}
+
+table.dataframe, .dataframe th {
+    background-color: white;
+    border-bottom: 1px solid #C8C8C8;
+    border-collapse: collapse;
+	font-size: 0.9em;
+}
+
+.dataframe th {
+    text-align:left;
+		}
+
+table.dataframe {
+    width: 1100px;
+    border: solid 2.5px;
+}
+
+.chart {
+    width: 1000px;
+    border: solid 2.5px;
+}
+
+body {
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+}
+
+div.head_img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100.6vh;
+    background-image: url("../images/image.jpg")};
+}
