@@ -13,6 +13,7 @@ class SentimentProcessing:
         self.chip_name = stock
         self.df_chip = pd.DataFrame
         self.parsed_news = pd.DataFrame
+        self.price_df = pd.DataFrame
 
     def score_news_polarity(self) -> pd.DataFrame:
         """
@@ -23,6 +24,7 @@ class SentimentProcessing:
         # Scrap news from investfunds.ru
         scraper = FinScrap(self.chip_name)
         df_dict = scraper.get_chip_news()
+        self.price_df = scraper.get_stock_price()
         # Make pandas dataframe from dict
         self.df_chip = pd.DataFrame(df_dict, columns=['Stock', 'Date', 'Title'])
         # Set sentiment analyser
@@ -43,9 +45,17 @@ class SentimentProcessing:
         """
         Plot daily sentiment score for interested stock
         """
-        fig = px.bar(self.parsed_news, x=self.parsed_news.Date, y=self.parsed_news.compound,
-                     title=self.chip_name + ' Daily Sentiment Scores')
+        df = self.parsed_news
+        fig = px.bar(df, x=df.Date, y=df.compound, title=df.chip_name + ' Daily Sentiment Scores')
         fig.update_yaxes(title=None)
         # Return fig and then turn it into a graphjson object for displaying in web page later
         return fig
 
+    def plot_price(self):
+        """
+        Plot daily closing stock price for interested asset
+        """
+        df = self.price_df
+        fig = px.line(df, x=df.Date, y=df.Stock_Price_Rub, title=df.chip_name + ' closing price ₽')
+        # Return fig and then turn it into a graphjson object for displaying in web page later
+        return fig
