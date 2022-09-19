@@ -19,8 +19,10 @@ class FinScrap:
         conf = ConfigParser()
         conf.read(config_path)
         conf_select = conf['website_url']
+        self.prices_df = []
         self.translator = Translator()
         self.chip_name = chip_name
+        self.chip_link = ''
         self.base_url = conf_select['base_url']
         self.blue_chips_url = conf_select['blue_chips_url']
         self.usr_agent_key = conf_select['usr_agent_key']
@@ -63,6 +65,7 @@ class FinScrap:
         chip_news = []
         # Collect chips links
         link = self.get_chips_links()[self.chip_name]
+        self.chip_link = link
         # Scrap blue chip news info from their links
         # Request to site
         response = requests.get(link, headers={self.usr_agent_key: self.usr_agent_value})
@@ -85,3 +88,28 @@ class FinScrap:
         # Save result to class argument
         self.chip_news = chip_news
         return chip_news
+
+    def get_stock_price(self) -> pd.DataFrame:
+        response = requests.get(self.chip_link, headers={self.usr_agent_key: self.usr_agent_value})
+        html = BeautifulSoup(response.text, 'lxml')
+        # First we'll scrap dates
+        raw_news = html.find('tbody').get_text()
+        dates_list = raw_news.split(" \n\n\n ")
+        del dates_list[0]
+        dates_list = dates_list[::-1]
+        dates_list[0] = re.sub(r'[^0-9.]', "", dates_list[0])
+        # Let's scrap stock price
+        prices_info = html.find_all('td', class_='field_legal_close_price')
+        del prices_info[0]
+        prices = []
+        for price_string in prices_info:
+            noise_price = price_string.get_text()
+            price = re.sub(r'[^0-9]', "", noise_price)
+            prices.append(int(price))
+        prices = prices[::-1]
+        # Concat 2 lists into pd.DataFrame
+        zip_lists = list(zip(dates_list, prices))
+        price_df = pd.DataFrame(zip_lists, columns=['Date', 'Stock_Price_Rub'])
+        price_df.Date = pd.to_datetime(price_df.Date, dayfirst=True)
+        self.prices_df = price_df
+        return price_df
