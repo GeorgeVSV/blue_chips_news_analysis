@@ -90,26 +90,39 @@ class FinScrap:
         return chip_news
 
     def get_stock_price(self) -> pd.DataFrame:
+        """
+        Scrap stock closing price with dates
+
+        :return: pd.DataFrame with stock closing prices and dates marks of the last 30 days
+        """
         response = requests.get(self.chip_link, headers={self.usr_agent_key: self.usr_agent_value})
         html = BeautifulSoup(response.text, 'lxml')
         # First we'll scrap dates
         raw_news = html.find('tbody').get_text()
+        # Clean dates from redundant symbols
         dates_list = raw_news.split(" \n\n\n ")
+        # Delete 'today' price because it is ambiguous
         del dates_list[0]
+        # Filter dates ascending
         dates_list = dates_list[::-1]
+        # Clean first date from redundant symbols
         dates_list[0] = re.sub(r'[^0-9.]', "", dates_list[0])
         # Let's scrap stock price
         prices_info = html.find_all('td', class_='field_legal_close_price')
+        # Delete 'today' price because it is ambiguous
         del prices_info[0]
         prices = []
         for price_string in prices_info:
             noise_price = price_string.get_text()
+            # Use regular expression for cleaning str
             price = re.sub(r'[^0-9]', "", noise_price)
             prices.append(int(price))
+        # Filter prices dut to dates
         prices = prices[::-1]
         # Concat 2 lists into pd.DataFrame
         zip_lists = list(zip(dates_list, prices))
         price_df = pd.DataFrame(zip_lists, columns=['Date', 'Stock_Price_Rub'])
+        # Convert date column to datetime format
         price_df.Date = pd.to_datetime(price_df.Date, dayfirst=True)
         self.prices_df = price_df
         return price_df
