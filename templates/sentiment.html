@@ -5,21 +5,30 @@
 		<link rel="stylesheet" type= "text/css" href="../static/styles/stl2.css">
 	</head>
 
-	<body>
+	<body >
 		<div class="head_img" align="center">
 			<h1>Daily Sentiment of <span>{{header}}</span> stock</h1>
 		<br><br>
-		<div id="chart" class="chart"></div>
+		<div class="float_parent">
+			<div class="float_child">
+				<div id="chart" class="float_child2"></div>
+			</div>
+			<div class="float_child">
+				<div id="chart2" class="float_child2"></div>
+			</div>
+		</div>
 		<br><br>
-		<p class="desc">The above chart averages the sentiment daily scores of <span>{{header}}</span> stock.
-    	The table below gives each of the most recent headlines of the stock and the negative, neutral, positive and an aggregated sentiment score.
-    	The news headlines are obtained from the investfunds website.
-    	Sentiments are given by the nltk.sentiment.vader Python library.</p>
-		<br><br>
+		<p class="desc">The above charts averages the sentiment daily scores of <span>{{header}}</span> stock.
+		The table below gives each of the most recent headlines of the stock and the negative, neutral, positive and an aggregated sentiment score.
+		The news headlines are obtained from the investfunds website.
+		Sentiments are given by the nltk.sentiment.vader Python library.</p>
+		<br>
 		<b>Latest stock's news:</b>
 		<br><br>
 		{{ table|safe }}
-		<h4 align="left"><a href="/">Go back and investigate another blue chip</a></h4>
+		<footer align="left">
+		<h4><a href="/">Go back and investigate another blue chip</a></h4>
+		</footer>
 		</div>
 	</body>
 
@@ -28,4 +37,9 @@
 		var graph_daily = {{graphJSON_daily | safe}};
 		Plotly.newPlot('chart',graph_daily,{});
 	</script>
+	<script type="text/javascript">
+		var graph_daily_price = {{graphJSON_daily_price | safe}};
+		Plotly.newPlot('chart2',graph_daily_price,{});
+	</script>
+
 </html>

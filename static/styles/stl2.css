@@ -48,11 +48,6 @@ table.dataframe {
     border: solid 2.5px;
 }
 
-.chart {
-    width: 1000px;
-    border: solid 2.5px;
-}
-
 body {
     font-family: system-ui;
     margin: 0;
@@ -62,6 +57,14 @@ body {
 div.head_img {
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100.6vh;
+    height: 100vh;
     background-image: url("../images/image.jpg")};
+}
+
+.float_parent {
+    width: 100%;
+}
+.float_child {
+    float: left;
+    width: 50%;
 }
