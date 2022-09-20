@@ -46,8 +46,8 @@ class SentimentProcessing:
         Plot daily sentiment score for interested stock
         """
         df = self.parsed_news
-        fig = px.bar(df, x=df.Date, y=df.compound, title=df.chip_name + ' Daily Sentiment Scores')
-        fig.update_yaxes(title=None)
+        fig = px.bar(df, x=df.Date, y=df.compound, title=self.chip_name + ' Daily Sentiment Scores')
+        fig.update_yaxes(title='Polarity Score')
         # Return fig and then turn it into a graphjson object for displaying in web page later
         return fig
 
@@ -56,6 +56,6 @@ class SentimentProcessing:
         Plot daily closing stock price for interested asset
         """
         df = self.price_df
-        fig = px.line(df, x=df.Date, y=df.Stock_Price_Rub, title=df.chip_name + ' closing price ₽')
+        fig = px.line(df, x=df.Date, y=df.Stock_Price_Rub, title=self.chip_name + ' Closing Price ₽')
         # Return fig and then turn it into a graphjson object for displaying in web page later
         return fig

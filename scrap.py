@@ -95,7 +95,7 @@ class FinScrap:
 
         :return: pd.DataFrame with stock closing prices and dates marks of the last 30 days
         """
-        response = requests.get(self.chip_link, headers={self.usr_agent_key: self.usr_agent_value})
+        response = requests.get(self.chips_links[self.chip_name], headers={self.usr_agent_key: self.usr_agent_value})
         html = BeautifulSoup(response.text, 'lxml')
         # First we'll scrap dates
         raw_news = html.find('tbody').get_text()
@@ -124,5 +124,7 @@ class FinScrap:
         price_df = pd.DataFrame(zip_lists, columns=['Date', 'Stock_Price_Rub'])
         # Convert date column to datetime format
         price_df.Date = pd.to_datetime(price_df.Date, dayfirst=True)
+        # Mark pennies
+        price_df.Stock_Price_Rub = price_df.Stock_Price_Rub / 100
         self.prices_df = price_df
         return price_df

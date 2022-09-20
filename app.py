@@ -28,16 +28,14 @@ def sentiment():
     fig_daily = parsed_news.plot_daily_news()
     # Encode plotly chart into JSON formatted object
     graph_json_daily = json.dumps(fig_daily, cls=plotly.utils.PlotlyJSONEncoder)
+    # Make plotly chart with daily stock closing price
+    fig_daily_price = parsed_news.plot_price()
+    # Encode plotly chart into JSON formatted object
+    graph_json_daily_price = json.dumps(fig_daily_price, cls=plotly.utils.PlotlyJSONEncoder)
     # Text for header of sentiment page
     header = "{}".format(chip_name)
-    # Description with some details about graphs and stock's info
-    description = """
-    The above chart averages the sentiment daily scores of {} stock.
-    The table below gives each of the most recent headlines of the stock and the negative, neutral, positive and an aggregated sentiment score.
-    The news headlines are obtained from the investfunds website.
-    Sentiments are given by the nltk.sentiment.vader Python library."""
-    description = description.format(chip_name)
-    return render_template('sentiment.html', graphJSON_daily=graph_json_daily, header=header,
+    return render_template('sentiment.html', graphJSON_daily=graph_json_daily,
+                           graphJSON_daily_price=graph_json_daily_price, header=header,
                            table=parsed_score_news.to_html(classes='data'))
 
 
