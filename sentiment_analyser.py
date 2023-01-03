@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 from nltk.sentiment import SentimentIntensityAnalyzer
 from scrap import FinScrap
+import nltk
 
 
 class SentimentProcessing:
@@ -27,6 +28,8 @@ class SentimentProcessing:
         self.price_df = scraper.get_stock_price()
         # Make pandas dataframe from dict
         self.df_chip = pd.DataFrame(df_dict, columns=['Stock', 'Date', 'Title'])
+        # Download VADER lexicon
+        nltk.download('vader_lexicon')
         # Set sentiment analyser
         vader = SentimentIntensityAnalyzer()
         # Calc polarity score for each headline
