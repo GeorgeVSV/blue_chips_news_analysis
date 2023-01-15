@@ -48,6 +48,7 @@ class FinScrap:
         # Clean chip name using regula expression
         for link in tqdm(hyperlinks_to_chips, desc='Scrapping chip links'):
             chip_name = (re.sub(r',.*', "", link.text))
+            chip_name = self.translator.translate(chip_name).text
             chips_links[chip_name] = (self.base_url + link.get('href'))
         # Save result to class argument
         self.chips_links = chips_links
