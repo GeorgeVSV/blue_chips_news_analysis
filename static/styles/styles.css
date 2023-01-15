@@ -46,9 +46,13 @@ b {
 }
 
 div.head_img {
-    background-size: cover;
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+    background-size: cover;
     background-image: url("../images/image.jpg")};
 }
 
@@ -68,7 +72,6 @@ input[type=submit] {
 	border: 2px solid DarkBlue;
 	font-size: 16px;
 	border-radius:4px;
-
 }
 
 input[type=submit]:active:focus {
@@ -91,7 +94,11 @@ table.dataframe, .dataframe th {
 		}
 
 table.dataframe {
-    width: 400px;
+    width: 350px;
     margin: auto;
     border: solid 5px;
+}
+
+i {
+    font-weight: 600;
 }

@@ -20,15 +20,15 @@
 					<b>Enter a Stock Name to see the daily sentiment scores of the Stock</b>
                     <br><br>
 					<input id="text_field" name="chip" type="text" required placeholder="Insert stock name">
-					<input id="submit_button" type="Submit" class="pb">
+					<input id="submit_button" type="Submit" class="pb" value="Submit">
             </form>
             <br><br>
-            <b>Current blue chips or ru stock market:</b><br><br>
+            <b>Current <span class="blue_chp">blue Chips</span> on ru stock market:</b><br><br>
             {{ table|safe }}
 
             <br><br><br>
         </div>
         </div>
-        <i>Disclaimer: This page <span class="disclaimer">is not</span> meant to represent any form of financial advice. Any investments you make will carry risk so remember to do your due diligence and research before doing so.</i>
+        <i><span class="disclaimer">Disclaimer</span>: This page <span class="disclaimer">is not</span> meant to represent any form of financial advice. Any investments you make will carry risk so remember to do your due diligence and research before doing so.</i>
     </body>
 </html>
