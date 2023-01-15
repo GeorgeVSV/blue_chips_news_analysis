@@ -13,9 +13,9 @@ Stock sentiments are determined from financial headlines scraped from the web
 
 There are 2 graphs:
 
-  -The left graph shows daily sentiment score
+ > -The left graph shows daily sentiment score
   
-  -The right graph shows daily stock close price
+ > -The right graph shows daily stock close price
     
 Also in the bottom there is table with sentiment score for each news(with date and title)
     
