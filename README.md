@@ -1,4 +1,4 @@
-# Web app for sentiment analysis of blue chips stock news
+## Web app for sentiment analysis of blue chips stock news
 
 Homepage with a list of current blue chips of ru stock market
 
@@ -21,6 +21,13 @@ Also in the bottom there is table with sentiment score for each news(with date a
     
 ![image](https://user-images.githubusercontent.com/112613534/212567683-d556396f-7219-43b1-8a0f-252c61a7e9e6.png)
 
+## Tech stack
+1. Nltk (V.A.D.E.R. model) 
+> "Valence Aware Dictionary for Sentiment Reasoning" is a model used for text sentiment analysis that is sensitive to both polarity (positive/negative) and intensity (strength) of emotion.
+2. Bs4 
+3. Flask
+4. Visualization using plotly
 
-
+## Docker 
+Prepared dockerfile for local deployment of the app from docker container
 
