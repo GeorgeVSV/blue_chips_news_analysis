@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.express as px
 from nltk.sentiment import SentimentIntensityAnalyzer
-from scrap import FinScrap
+from scrap import FinancialScrapper
 import nltk
 
 
@@ -23,9 +23,9 @@ class SentimentProcessing:
         :return: pd.DataFrame with polarity scores for all blue chips with separation based on days
         """
         # Scrap news from investfunds.ru
-        scraper = FinScrap(self.chip_name)
+        scraper = FinancialScrapper(self.chip_name)
         df_dict = scraper.get_chip_news()
-        self.price_df = scraper.get_stock_price()
+        self.price_df = scraper.get_chip_price()
         # Make pandas dataframe from dict
         self.df_chip = pd.DataFrame(df_dict, columns=['Stock', 'Date', 'Title'])
         # Download VADER lexicon

@@ -3,7 +3,7 @@ import plotly
 import json
 from flask import Flask, render_template
 from sentiment_analyser import SentimentProcessing
-from scrap import FinScrap
+from scrap import FinancialScrapper
 
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    scrapper = FinScrap()
+    scrapper = FinancialScrapper()
     parsed_stocks = scrapper.get_chips_links(for_landing=True)
     return render_template('index.html', table=parsed_stocks.to_html(classes='data'))
 

@@ -7,7 +7,7 @@ import requests
 import re
 
 
-class FinScrap:
+class FinancialScrapper:
     """Class for scrapping investfunds.ru site """
     def __init__(self, chip_name: str = 'decoy', config_path: str = 'config/cnf.ini'):
         """
@@ -45,7 +45,7 @@ class FinScrap:
         # Retrieve specific tags
         raw_chips = html.find('tbody')
         hyperlinks_to_chips = raw_chips.find_all('a')
-        # Clean chip name using regula expression
+        # Clean chip name using regular expression
         for link in tqdm(hyperlinks_to_chips, desc='Scrapping chip links'):
             chip_name = (re.sub(r',.*', "", link.text))
             chip_name = self.translator.translate(chip_name).text
@@ -84,13 +84,13 @@ class FinScrap:
             trans_date = self.translator.translate(date).text
             trans_title = self.translator.translate(title).text
             trans_chip = self.translator.translate(self.chip_name).text
-            # Add data to list of lists
+            # Add data to list with chips data
             chip_news.append([trans_chip, trans_date, trans_title])
         # Save result to class argument
         self.chip_news = chip_news
         return chip_news
 
-    def get_stock_price(self) -> pd.DataFrame:
+    def get_chip_price(self) -> pd.DataFrame:
         """
         Scrap stock closing price with dates
 
@@ -98,7 +98,7 @@ class FinScrap:
         """
         response = requests.get(self.chips_links[self.chip_name], headers={self.usr_agent_key: self.usr_agent_value})
         html = BeautifulSoup(response.text, 'lxml')
-        # First we'll scrap dates
+        # First scrap dates
         raw_news = html.find('tbody').get_text()
         # Clean dates from redundant symbols
         dates_list = raw_news.split(" \n\n\n ")
@@ -108,7 +108,7 @@ class FinScrap:
         dates_list = dates_list[::-1]
         # Clean first date from redundant symbols
         dates_list[0] = re.sub(r'[^0-9.]', "", dates_list[0])
-        # Let's scrap stock price
+        # Scrap stock price
         prices_info = html.find_all('td', class_='field_legal_close_price')
         # Delete 'today' price because it is ambiguous
         del prices_info[0]
@@ -118,7 +118,7 @@ class FinScrap:
             # Use regular expression for cleaning str
             price = re.sub(r'[^0-9]', "", noise_price)
             prices.append(int(price))
-        # Filter prices dut to dates
+        # Filter prices due to dates
         prices = prices[::-1]
         # Concat 2 lists into pd.DataFrame
         zip_lists = list(zip(dates_list, prices))
