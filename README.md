@@ -4,7 +4,8 @@ Homepage with a list of current blue chips of ru stock market
 
 Web app  displays the daily  sentiments for a stock (user to enter stock name as input).
 
-![image](https://user-images.githubusercontent.com/112613534/212565877-3c3bf2d6-4a36-4176-b5a5-11433212e77b.png)
+![image](https://user-images.githubusercontent.com/112613534/212647564-3e6e8df8-c507-495b-b60c-4595942f35fc.png)
+
 
 
 
@@ -19,7 +20,7 @@ There are 2 graphs:
     
 Also in the bottom there is table with sentiment score for each news(with date and title)
     
-![image](https://user-images.githubusercontent.com/112613534/212567683-d556396f-7219-43b1-8a0f-252c61a7e9e6.png)
+![image](https://user-images.githubusercontent.com/112613534/212648206-0417ef2c-0e6c-44b6-a782-50d7560d5cc2.png)
 
 ## Tech stack
 1. Nltk (V.A.D.E.R. model) 
