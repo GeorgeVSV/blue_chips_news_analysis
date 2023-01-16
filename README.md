@@ -28,6 +28,16 @@ Also in the bottom there is table with sentiment score for each news(with date a
 3. Flask
 4. Visualization using plotly
 
+## Requirements
+ googletrans -> version 4.0.0c1, other may cause http errors.
+
+## Installation
+ 1.   git clone https://github.com/GeorgeVSV/blue_chips_news_analysis.git
+ 2.   pip install -r requirements.txt
+ 
+## Launch(on 5000 port)
+    python app.py 
+ 
 ## Docker 
-Prepared dockerfile for local deployment of the app from docker container
+> Prepared dockerfile for local deployment of the app from docker container
 
