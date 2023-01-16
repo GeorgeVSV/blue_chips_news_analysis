@@ -2,7 +2,7 @@
 
 Homepage with a list of current blue chips of ru stock market
 
-Web app  displays the daily  sentiments for a stock (user to enter stock name as input).
+Web app  displays the daily  sentiments for a stock (user to insert stock name as input).
 
 ![image](https://user-images.githubusercontent.com/112613534/212647564-3e6e8df8-c507-495b-b60c-4595942f35fc.png)
 
