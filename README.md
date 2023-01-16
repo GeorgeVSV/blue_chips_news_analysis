@@ -20,7 +20,7 @@ There are 2 graphs:
     
 Also in the bottom there is table with sentiment score for each news(with date and title)
     
-![image](https://user-images.githubusercontent.com/112613534/212648206-0417ef2c-0e6c-44b6-a782-50d7560d5cc2.png)
+![image](https://user-images.githubusercontent.com/112613534/212649296-bd3b82ee-e77c-4aa5-8f34-4dcd717ccf6c.png)
 
 ## Tech stack
 1. Nltk (V.A.D.E.R. model) 
