@@ -17,13 +17,13 @@
                 of companies in a wide market</p>
             <br><br><br>
             <form action="sentiment" method="POST" >
-                <b>Enter a Stock Name to see the daily sentiment scores of the Stock</b>
+                <b>Insert a stock name to see the daily sentiment score</b>
                 <br><br>
-                <input id="text_field" name="chip" type="text" required placeholder="Insert stock name" pattern="[A-Z][a-z]+">
+                <input id="text_field" name="chip" type="text" required placeholder="Interested stock name" pattern="[A-Z][a-z]+">
                 <input id="submit_button" type="Submit" class="pb" value="Submit">
             </form>
             <br><br>
-            <b>Current <span class="blue_chp">blue Chips</span> on ru stock market:</b><br><br>
+            <b>Current <span class="blue_chp">Blue Chips</span> on ru stock market:</b><br><br>
             {{ table|safe }}
             <br><br><br>
         </div>

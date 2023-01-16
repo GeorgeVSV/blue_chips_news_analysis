@@ -7,7 +7,7 @@
 
 	<body >
 		<div class="head_img" align="center">
-			<h1>Daily Sentiment of <span>{{header}}</span> stock</h1>
+			<h1>Daily Sentiment score of <span>{{header}}</span></h1>
 		<br><br>
 		<div class="float_parent">
 			<div class="float_child">
@@ -23,7 +23,7 @@
 		The news headlines are obtained from the investfunds website.
 		Sentiments are given by the nltk.sentiment.vader Python library.</p>
 		<br>
-		<b>Latest stock's news:</b>
+		<b>Latest news related to <span>{{header}}</span>:</b>
 		<br><br>
 		{{ table|safe }}
 		<footer align="left">
